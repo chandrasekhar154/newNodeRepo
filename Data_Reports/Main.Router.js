@@ -16,7 +16,7 @@ router.get('/getCustomers', async (req, resp) => {
 	}
 	catch (err) {
 		let code = err.code ? err.code : 400
-        resp.status(code).json({ message: err.message });
+        resp.json({ status : code , message: err.message });
 	}
 });
 
@@ -61,5 +61,17 @@ router.delete('/deleteCustomer/:Id', async(req, resp) => {
 		resp.status(code).json({ message : err.message });
 	}
 });
+
+// Testing for library Methods.
+ router.get('/testExecuteQuery' , async(req, resp) => {
+	try {
+		let useCase = MainLogic.create(req, resp);
+		await useCase.testExecuteQuery();
+	}
+	catch(err) {
+		let code = err.code ? err.code : 400;
+		resp.status(code).json({ message : err.message });
+	}
+ });
 
 module.exports = router;

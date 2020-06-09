@@ -1,8 +1,11 @@
 const connectionPool = require('./ConfigurationLogic');
+const MySQLData = require('../Library/MySQLData');
+
 // const mysql = require('mysql');
-module.exports = class MainLogic {
+module.exports = class MainLogic extends MySQLData{
 
 	constructor (req, resp) {
+		super();
 		this.req = req;
 		this.resp = resp;
 	}
@@ -13,6 +16,8 @@ module.exports = class MainLogic {
 			connectionPool.connect((err) => {
 				if(err) throw err;
 				console.log("connected..");
+				let helloWorld = MySQLData.create();
+				helloWorld.helloWorld();
 				let selectQuery = "SELECT * FROM `doctors_availability`";
 				connectionPool.query(selectQuery, (err, result) => {
 					if(err) throw err;
@@ -102,6 +107,18 @@ module.exports = class MainLogic {
 		}
 		catch(err) {
 			console.log("Catch in Main Logic.. Hello world.." + err);
+		}
+	}
+
+	async testExecuteQuery() {
+		try {
+			console.log("Try in Main Logic.. Hello world..");
+			let helloWorld = MySQLData.create();
+			helloWorld.helloWorld();
+			
+		}
+		catch(err) {
+			
 		}
 	}
 
