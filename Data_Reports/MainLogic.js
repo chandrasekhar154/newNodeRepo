@@ -18,7 +18,7 @@ module.exports = class MainLogic extends MySQLData{
 				console.log("connected..");
 				let helloWorld = MySQLData.create();
 				helloWorld.helloWorld();
-				let selectQuery = "SELECT * FROM `doctors_availability`";
+				let selectQuery = "SELECT * FROM `customer_master` order by customer_id";
 				connectionPool.query(selectQuery, (err, result) => {
 					if(err) throw err;
 					// console.log(result);
