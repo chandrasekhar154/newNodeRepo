@@ -74,4 +74,17 @@ router.delete('/deleteCustomer/:Id', async(req, resp) => {
 	}
  });
 
+ // Login Service
+
+ router.post('/loginService', async(req, resp) => {
+	try {
+		let useCase = MainLogic.create(req, resp);
+		await useCase.loginService();
+	}
+	catch (err) {
+		let code = err.code ? err.code : 400;
+		resp.status(code).json({ message : err.message });
+	}
+ });
+
 module.exports = router;

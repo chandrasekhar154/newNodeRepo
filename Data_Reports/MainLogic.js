@@ -122,6 +122,21 @@ module.exports = class MainLogic extends MySQLData{
 		}
 	}
 
+	async loginService() {
+		try {
+			connectionPool.connect((err) => {
+				let selectQuery = "SELECT * FROM `user` where username = '"+ this.req.body.username +"' and password ='" + this.req.body.password +"'";
+				connectionPool.query(selectQuery, (err, result) => {
+					if(err) throw err;
+					this.resp.json({ 'statusCode' : 200, 'result': result });
+				})
+			});
+		}
+		catch (err) {
+			this.resp.json({ 'Err' : err});
+		}
+	}
+
 
 	static create(req, resp) {
 		let useCase = new MainLogic(req, resp);
